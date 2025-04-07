@@ -51,10 +51,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project_quora.urls'
 
+TEMPLATES_PATH = BASE_DIR / "templates"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_PATH],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
