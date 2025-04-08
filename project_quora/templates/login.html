@@ -1,25 +1,28 @@
-<h2>Login</h2>
+<div style="font-family: Arial;">
+    <h2 style="color: #b92b27;">Login</h2>
 
-<form method="post">
-    {% csrf_token %}
+    <form method="post">
+        {% csrf_token %}
 
-    {{ form.non_field_errors }}
+        {{ form.non_field_errors }}
+
+        <div>
+            {{ form.username.label_tag }}<br>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+
+        <div>
+            {{ form.password.label_tag }}<br>
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        <button style="background-color: #b92b27; color: #fff;" type="submit">Login</button>
+    </form>
 
     <div>
-        {{ form.username.label_tag }}<br>
-        {{ form.username }}
-        {{ form.username.errors }}
+        <a style="color: #b92b27;" href="{% url 'signup_view' %}">Signup</a>
     </div>
 
-    <div>
-        {{ form.password.label_tag }}<br>
-        {{ form.password }}
-        {{ form.password.errors }}
-    </div>
-
-    <button type="submit">Login</button>
-</form>
-
-<div>
-    <a href="{% url 'signup_view' %}">Signup</a>
 </div>
