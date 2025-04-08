@@ -6,6 +6,31 @@
 <b>Total Answers</b>:{{question.total_answers}}
 <br>
 <br>
-<b>Answers:</b>
-
+<b><u>Answers:</u></b>
+{% if question.answers %}
+<br>
+<br>
+<div>
+    {% for i in question.answers.all %}
+    <div>
+        Answer No. {{forloop.counter}}
+    </div>
+    <p>
+        {{i.text}} <br>
+        <small><b>Answered by</b> - {{i.created_by}} | <b>Answered On</b> - {{i.created_date}}</small>
+    </p>
+    <form action="{% url 'question_answer_like_view' question.id i.id %}">
+        👍 {{i.total_likes}} Likes
+        {% if user in i.likes.all %}
+        <button disabled>Liked</button>
+        {% else %}
+        <button>Like</button>
+        {% endif %}
+    </form>
+    <hr>
+    {% endfor %}
+</div>
+{% else %}
+No Answers Yet
+{% endif %}
 {% endblock %}

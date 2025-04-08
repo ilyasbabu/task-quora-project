@@ -7,70 +7,85 @@
     <button type="submit">Ask a Question</button>
 </form>
 <hr>
-<div style="display: flex;">
+<div style="display: flex; ">
     <div style="width: 80%;">
         <h2>Questions</h2>
         <div>
-            {% for i in questions %}
-            <div style="display: flex; justify-content: space-between; width: 50%;">
-                <span>
-                    Question No. {{ forloop.counter }}. <br>
-                    {{i.text}} dahkjas a khadsl adsh adsh lhdas das ladh jasdh las lads Lorem
-                    ipsum dolor sit amet. lorem*5 <br>
-                    <small>Total Answers - {{i.total_answers}}</small>
-                </span>
-                <a href="">Detailed View</a>
-            </div>
-            <form method="post" action="{% url 'question_answer_view' i.id %}"
-                style="display: flex; align-items: center;">
-                {% csrf_token %}
-                {{ answer_form.as_p }}
-                <button style="height: 40px;" type="submit">Submit Answer</button>
-            </form>
-            <br>
-            <b><u>Answers</u></b>
-            <br>
-            <br>
-            {% if i.q_answers %}
-            {% for a in i.q_answers %}
-            <p>
-                {{ forloop.counter }} . {{a.text}} <br>
-                <small><b>Answered by</b> - {{a.created_by}} | <b>Answered On</b> - {{a.created_date}}</small>
-            </p>
+            {% if questions %}
+            <div>
+                {% for i in questions %}
+                <div>
+                    <div style="display: flex; justify-content: space-between; width: 50%;">
+                        <span>
+                            <b>Question No. {{ forloop.counter }}</b> <br>
+                            {{i.text}} <br>
+                            <small><b>Total Answers</b> - {{i.total_answers}} | <b>Asked By</b> - {{i.created_by}} |
+                                <b>Asked
+                                    on</b> - {{i.created_date}}</small>
+                        </span>
+                        <a href="{% url 'question_detailed_view' i.id %}">Detailed View</a>
+                    </div>
+                    <form method="post" action="{% url 'question_answer_view' i.id %}"
+                        style="display: flex; align-items: center;">
+                        {% csrf_token %}
+                        {{ answer_form.as_p }}
+                        <button style="height: 40px;" type="submit">Submit Answer</button>
+                    </form>
+                </div>
+                <br>
+                <b><u>Answers</u></b>
+                <br><br>
+                {% if i.q_answers %}
+                <div>
+                    {% for a in i.q_answers %}
+                    <p>
+                        {{ forloop.counter }} . {{a.text}} <br>
+                        <small><b>Answered by</b> - {{a.created_by}} | <b>Answered On</b> - {{a.created_date}}</small>
+                    </p>
 
-            <form action="{% url 'question_answer_like_view' i.id a.id %}">
-                👍 {{a.total_likes}} Likes
-                {% if user in a.likes.all %}
-                <button disabled>Liked</button>
+                    <form action="{% url 'question_answer_like_view' i.id a.id %}">
+                        👍 {{a.total_likes}} Likes
+                        {% if user in a.likes.all %}
+                        <button disabled>Liked</button>
+                        {% else %}
+                        <button>Like</button>
+                        {% endif %}
+                    </form>
+                    <br>
+                    {% endfor %}
+                </div>
                 {% else %}
-                <button>Like</button>
+                No Answers yet
                 {% endif %}
-            </form>
-            <br>
-            {% endfor %}
+                <hr>
+                {% endfor %}
+            </div>
             {% else %}
-            No Answers yet
+            <p>No Questions Asked yet.</p>
             {% endif %}
-            <hr>
-            {% endfor %}
         </div>
     </div>
     <div style="width: 20%; border-inline: 5px solid red; padding: 10px;">
         <h3>Your Questions</h3>
         <div>
+            {% if user_questions %}
             {% for i in user_questions %}
             <div style="display: flex; justify-content: space-between;">
                 <span>
-                    {{ forloop.counter }}.{{i.text}} <br>
+                    <b>Question No. {{ forloop.counter }}</b> <br>{{i.text}} <br>
                     Total Answers - {{i.total_answers}}
                 </span>
-                <a href="{% url 'user_question_detailed_view' i.id %}">Detailed View</a>
+                <a href="{% url 'question_detailed_view' i.id %}">Detailed View</a>
             </div>
             <hr>
             {% endfor %}
+            {% else %}
+            You haven't posted any questions
+            {% endif %}
         </div>
         <h3>Your Answers</h3>
         <div>
+            {% if user_answers %}
             {% for i in user_answers %}
             <div>
                 {{ forloop.counter }}.{{i.text}} <br><br>
@@ -79,6 +94,9 @@
             </div>
             <hr>
             {% endfor %}
+            {% else %}
+            You haven't posted any answers
+            {% endif %}
         </div>
     </div>
 </div>

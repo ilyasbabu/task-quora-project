@@ -7,8 +7,11 @@
 </head>
 <body>
     <div style="display: flex; justify-content: space-between;">
-        <h2>Quora</h2>
-        <a style="padding: 10px 50px;" href="{% url 'logout_view' %}">Logout</a>
+        <h2><a href="/">Quora</a></h2>
+        <div style="display: grid;">
+            Username : {{user}}
+            <a style="padding: 10px 50px;" href="{% url 'logout_view' %}">Logout</a>
+        </div>
     </div>
     <hr>
     {% block body %}{% endblock %}

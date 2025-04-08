@@ -24,7 +24,7 @@ from core.views import (
     home_view,
     logout_view,
     add_question_view,
-    user_question_detailed_view,
+    question_detailed_view,
     question_answer_view,
     question_answer_like_view,
 )
@@ -37,20 +37,15 @@ urlpatterns = [
     path("", home_view, name="home"),
     path("question/add/", add_question_view, name="add_question_view"),
     path(
-        "user/question/<int:question_id>",
-        user_question_detailed_view,
-        name="user_question_detailed_view",
+        "question/<int:question_id>",
+        question_detailed_view,
+        name="question_detailed_view",
     ),
     path(
         "question/answer/<int:question_id>",
         question_answer_view,
         name="question_answer_view",
     ),
-    # path(
-    #     "question/detail/<int:id>",
-    #     question_detailed_view,
-    #     name="question_detailed_view",
-    # ),
     path(
         "question/<int:q_id>/answer/<int:a_id>/like",
         question_answer_like_view,

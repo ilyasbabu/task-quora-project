@@ -114,9 +114,10 @@ def add_question_view(request):
 
 
 @login_required
-def user_question_detailed_view(request, question_id):
+def question_detailed_view(request, question_id):
     context = {}
-    question = Question.objects.filter(id=question_id, created_by=request.user)
+    context["user"] = request.user
+    question = Question.objects.filter(id=question_id)
     if question.exists():
         context["question"] = question.first()
         return render(request, "user_question_detailed.html", context)
@@ -143,4 +144,4 @@ def question_answer_view(request, question_id):
 def question_answer_like_view(request, q_id, a_id):
     answer = Answer.objects.get(id=a_id)
     answer.likes.add(request.user)
-    return redirect("home")
+    return redirect(request.META['HTTP_REFERER'])
