@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block body %}
-<b>Question:</b>
+<b style="color: #b92b27;">Question:</b>
 <p>{{question.text}}</p>
 <br>
 <b>Total Answers</b>:{{question.total_answers}}
 <br>
 <br>
-<b><u>Answers:</u></b>
+<b style="color: #b92b27;"><u>Answers:</u></b>
 {% if question.answers %}
 <br>
 <br>
@@ -17,10 +17,10 @@
     </div>
     <p>
         {{i.text}} <br>
-        <small><b>Answered by</b> - {{i.created_by}} | <b>Answered On</b> - {{i.created_date}}</small>
+        <small style="color: gray;"><b>Answered by</b> - {{i.created_by}} | <b>Answered On</b> - {{i.created_date}}</small>
     </p>
     <form action="{% url 'question_answer_like_view' question.id i.id %}">
-        👍 {{i.total_likes}} Likes
+        <span style="color: gray;">👍 {{i.total_likes}} Likes</span>
         {% if user in i.likes.all %}
         <button disabled>Liked</button>
         {% else %}

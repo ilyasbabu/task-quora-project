@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quora</title>
 </head>
-<body>
-    <div style="display: flex; justify-content: space-between;">
-        <h2><a href="/">Quora</a></h2>
-        <div style="display: grid;">
-            Username : {{user}}
-            <a style="padding: 10px 50px;" href="{% url 'logout_view' %}">Logout</a>
+<body style="margin: 0; font-family: Arial;">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 40px;">
+        <h2 style="margin: 0;">
+            <a href="/" style="text-decoration: none; color: #b92b27;">Quora</a>
+        </h2>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <span>Username: <b>{{ user }}</b></span>
+            <a href="{% url 'logout_view' %}"
+                style="padding: 10px 20px; background-color: #b92b27; color: #fff;">Logout</a>
         </div>
     </div>
     <hr>
-    {% block body %}{% endblock %}
+    <div style="padding: 30px;">
+        {% block body %}{% endblock %}
+    </div>
 </body>
+
 </html>
